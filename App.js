@@ -3,11 +3,12 @@ import { WebView } from 'react-native-webview';
 import { useRef, useState, useEffect } from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
+import { NetworkInfo } from "react-native-network-info";
 
 export default function App() {
-  const [showWebView, setShowWebView] = useState(false);
   const [animationFinished, setAnimationFinished] = useState(false);
   const animation = useRef(null);
+  const [ip, setIp] = useState('');
 
   useEffect(() => {
     setTimeout(() => {
@@ -21,10 +22,18 @@ export default function App() {
     setAnimationFinished(false);
   };
 
+  useEffect(() => {
+    /* ip 가져오기 실패..
+    NetworkInfo.getIPV4Address().then(ipv4Address => {
+      setIp(ipv4Address);
+    });
+    */
+  }, []);
+
   return (
     <View style={styles.container}>
       {animationFinished ? (
-        <WebView source={{ uri: 'http://192.168.35.120:3000/' }} style={{ marginTop: 0 }} />
+        <WebView source={{ uri: `http://192.168.35.134:3000/` }} style={{ marginTop: 0 }} />
       ) : (
         <View style={styles.animationContainer}>
           <LottieView
